@@ -5,27 +5,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bingo Card</title>
     <style>
+        :root {
+            --table-width: min(80vh, 80vw);
+            --cell-height: calc( var(--table-width) / 5 );
+            --top-margin: calc( ( 100vh - var(--table-width) ) / 2);
+            --cell-unselected: #ffffff;
+            --cell-selected: #6f8c5d;
+            --text-unselected: #000000;
+            --text-selected: #ffffff;
+        }
         table {
+            margin-top: var(--top-margin);
             border-collapse: collapse;
-            width: 100%;
+            width: var(--table-width);
+            table-layout: fixed;
         }
         td {
             border: 1px solid black;
-            padding: 10px;
-            text-align: left;
+            text-align: center;
+            height: var(--cell-height);
+            table-layout: fixed;
+            word-wrap: break-word;
+            background-color: var(--cell-unselected);
+            color: var(--text-unselected);
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+        }
+        .highlight {
+            background-color: var(--cell-selected);
+            color: var(--text-selected);
         }
     </style>
+    <script>
+        window.onload = function () {
+        var tds = document.getElementsByTagName("td");
+        for (var i = 0; i < tds.length; i++)
+            tds[i].onclick = toggleHighlight;
+
+    }
+
+    function toggleHighlight() {
+        var td = this;
+        if (td.className == 'highlight')
+            td.className = '';
+        else
+            td.className = 'highlight';
+    }
+    </script>
 </head>
 <body>
-    <h1>Bingo Card</h1>
-    <table>
-        {% for row in card %}
-            <tr>
-                {% for quote in row %}
-                    <td>{{ quote }}</td>
-                {% endfor %}
-            </tr>
-        {% endfor %}
-    </table>
+    <div class="container">
+    <!--    <h1>Bingo Card</h1>-->
+        <table>
+            {% for row in card %}
+                <tr>
+                    {% for quote in row %}
+                        <td>
+                            {{ quote }}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 </body>
 </html>
