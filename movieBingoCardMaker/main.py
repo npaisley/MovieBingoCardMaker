@@ -6,7 +6,6 @@ from pathlib import Path
 
 # TODO getopts to set parameters
 # TODO menu for selecting movie (set by csv title)
-# TODO read quotes from csv files (seperate for center (freebie), reg cliches, movie specific)
 # TODO options for amount of movie vs cliches
 # TODO options for how many bingo cards
 # TODO set title depending on movie
