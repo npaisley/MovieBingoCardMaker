@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "bingocardmaker"
+name = "movieBingoCardMaker"
 version = "0.1.0"
 description = ""
 authors = ["npaisley <47052925+npaisley@users.noreply.github.com>"]
