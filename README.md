@@ -8,4 +8,5 @@ Install using poetry via `poetry install`.
 ## Running the script
 Run using `poetry run python main.py`.
 
+## Example Output
 ![example bingo card](\assets\example-card.png)
