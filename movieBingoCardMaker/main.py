@@ -2,13 +2,9 @@ import random
 from jinja2 import Environment, FileSystemLoader
 import csv
 from pathlib import Path
+import argparse
 
 
-# TODO getopts to set parameters
-# TODO menu for selecting movie (set by csv title)
-# TODO options for amount of movie vs cliches
-# TODO options for how many bingo cards
-# TODO set title depending on movie
 def load_quotes_csv(csv_file: Path) -> list:
     """
     Load quotes from csv file and returns a flattened list
@@ -57,8 +53,42 @@ def draw_bingo_card_html(card):
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        prog='movieBingoCardMaker',
+        description='Makes html bingo cards using movie cliches and movie specific quotes'
+    )
+    parser.add_argument(
+        '-f',
+        '--file',
+        help="csv with movie specific quotes, must be placed in the data directory. "
+             "If not provided only movie cliches will be used"
+    )
+    parser.add_argument(
+        '-c',
+        '--count',
+        type=int,
+        default=3,
+        help="number of bingo cards to generate"
+    )
+    parser.add_argument(
+        '-q',
+        '--quotes',
+        type=int,
+        default=50,
+        help='Percentage of bingo spots to use movie specific quotes'
+    )
+    args = parser.parse_args()
+
+    # TODO load quotes
+
+    # TODO loop over required cards
+    # TODO shuffle quotes
+    # TODO make card
+    # TODO export card
+
     # card = generate_bingo_card()
     # draw_bingo_card_html(card)
+    # TODO set title depending on movie
     files = Path('./data').glob('*.csv')
     for file in files:
         print(file.name)
