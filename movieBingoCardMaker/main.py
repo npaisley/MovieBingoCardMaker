@@ -15,8 +15,6 @@ def load_quotes_csv(csv_file: Path) -> list:
         csv_reader = csv.reader(f)
         quotes = [str(q).strip() for row in csv_reader for q in row]
 
-    print(quotes)
-
     return quotes
 
 
@@ -53,6 +51,7 @@ def draw_bingo_card_html(card):
 
 
 if __name__ == "__main__":
+    # command line options for specific movie quotes, the amount of bingo cards, and percentage of movie vs cliches
     parser = argparse.ArgumentParser(
         prog='movieBingoCardMaker',
         description='Makes html bingo cards using movie cliches and movie specific quotes'
@@ -75,12 +74,35 @@ if __name__ == "__main__":
         '--quotes',
         type=int,
         default=50,
-        help='Percentage of bingo spots to use movie specific quotes'
+        help='Percentage of bingo squares to use movie specific quotes'
     )
     args = parser.parse_args()
 
-    # TODO load quotes
+    # load quotes and cliches
+    path_base = Path(__file__).parent.joinpath('data')
+    path_free = path_base.joinpath('free.csv')
+    path_cliches = path_base.joinpath('cliches.csv')
+    path_movie = path_base.joinpath(f'{args.file}') if args.file is not None else None
 
+    # ensure all required files exist
+    for f in [path_free, path_cliches, path_movie]:
+        if f is not None:
+            if not f.exists():
+                raise FileNotFoundError(
+                    f"{f.name} does not exist. Please make sure {f.name} is placed in the data directory."
+                )
+
+    quotes_free = load_quotes_csv(path_free)
+    quotes_cliches = load_quotes_csv(path_cliches)
+    quotes_movie = load_quotes_csv(path_movie) if args.file is not None else []
+
+    print(quotes_free, quotes_cliches, quotes_movie, sep='\n')
+    title_replace = {
+        '-': ' ',
+        '_': ' '
+    }
+    title = ''.join([title_replace.get(ch, ch) for ch in path_movie.stem]).title() if args.file is not None else None
+    print(title)
     # TODO loop over required cards
     # TODO shuffle quotes
     # TODO make card
@@ -89,7 +111,3 @@ if __name__ == "__main__":
     # card = generate_bingo_card()
     # draw_bingo_card_html(card)
     # TODO set title depending on movie
-    files = Path('./data').glob('*.csv')
-    for file in files:
-        print(file.name)
-        cards = load_quotes_csv(file)
