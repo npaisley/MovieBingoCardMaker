@@ -9,4 +9,4 @@ Install using poetry via `poetry install`.
 Run using `poetry run python main.py`.
 
 ## Example Output
-![example bingo card](\assets\example-card.png)
+![example bingo card](https://raw.githubusercontent.com/npaisley/MovieBingoCardMaker/master/assets/example-card.png)
