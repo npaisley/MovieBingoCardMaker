@@ -18,14 +18,54 @@ def load_quotes_csv(csv_file: Path) -> list:
     return quotes
 
 
-def shuffle_quotes(quotes: list, length: int) -> list:
+def shuffle_quotes(quotes: list[list[str]], ratios: list[int], length: int) -> list:
     """
-    shuffles quotes and returns a list of the requested length
+    Randomly shuffle the provided quotes according to the ratio between the two and return a list of the
+    desired length
     :param quotes:
+    :param ratios:
     :param length:
     :return:
     """
-    random.shuffle(quotes)
+    # TODO clean up.
+    #  Split into two functions (calc amount required from each list, shuffle and return required amount)
+    #  comment code
+    #  refactor so names make sense (items instead of quotes)
+    # ensure ratio list is the same length as the quotes list
+    if len(quotes) != len(ratios):
+        raise ValueError('insufficient ratios supplied to shuffle quotes')
+
+    # check if there are enough quotes to return the requested amount
+    if length > (total := sum([len(i) for i in quotes])):
+        raise ValueError(f'insufficient quotes supplied. {total} found but {length} required')
+
+    # determine the number of quotes that are needed from each list
+    requested = [round(length * (i / sum(ratios))) for i in ratios]
+    available = [len(i) for i in quotes]
+
+    amount = [r if r <= a else a for r, a in zip(requested, available)]
+    diff = sum(requested) - sum(amount)
+
+    iteration = 0
+    while diff != 0:
+        change_bools = [0 if r > n else 1 for r, n in zip(requested, amount)]
+        total_changes = sum(change_bools)
+
+        diff_split = [diff // total_changes + (1 if x < diff % total_changes else 0) for x in range(total_changes)]
+        amount = [i + diff_split.pop() if f == 1 else i for i, f in zip(amount, change_bools)]
+        diff = sum(requested) - sum(amount)
+
+        if (iteration := iteration + 1) > 5:  # TODO make max scale with length of quotes (figure out theory max iterantions for list of length n)
+            break
+
+
+    # check if there are enough quotes
+    # ratios_count = [r if r <= len(q) else len(q) for r, q in zip(ratios_count, quotes)]
+    #
+    # print(ratios_count)
+    #
+    # for i, r in zip(quotes, ratios):
+    #     random.shuffle(i)
 
     return quotes[:length]
 
@@ -50,7 +90,24 @@ def draw_bingo_card_html(card):
     print("Bingo card saved as bingo_card.html")
 
 
+def title_from_file_name(file_path: Path) -> str:
+    """
+    takes the file name and outputs a title formatted in title case
+    :param file_path: Path object of the file
+    :return:
+    """
+    title_replace = {
+        '-': ' ',
+        '_': ' '
+    }
+
+    formatted_title = ''.join([title_replace.get(ch, ch) for ch in file_path.stem]).title() if file_path is not None else None
+
+    return formatted_title
+
+
 if __name__ == "__main__":
+    # TODO put in own function
     # command line options for specific movie quotes, the amount of bingo cards, and percentage of movie vs cliches
     parser = argparse.ArgumentParser(
         prog='movieBingoCardMaker',
@@ -82,7 +139,7 @@ if __name__ == "__main__":
     path_base = Path(__file__).parent.joinpath('data')
     path_free = path_base.joinpath('free.csv')
     path_cliches = path_base.joinpath('cliches.csv')
-    path_movie = path_base.joinpath(f'{args.file}') if args.file is not None else None
+    path_movie = path_base.joinpath(f'{args.file}') if args.file is not None else None  # TODO put movies in subfolder
 
     # ensure all required files exist
     for f in [path_free, path_cliches, path_movie]:
@@ -96,14 +153,14 @@ if __name__ == "__main__":
     quotes_cliches = load_quotes_csv(path_cliches)
     quotes_movie = load_quotes_csv(path_movie) if args.file is not None else []
 
-    print(quotes_free, quotes_cliches, quotes_movie, sep='\n')
-    title_replace = {
-        '-': ' ',
-        '_': ' '
-    }
-    title = ''.join([title_replace.get(ch, ch) for ch in path_movie.stem]).title() if args.file is not None else None
-    print(title)
+    title = title_from_file_name(path_movie)
+
+    shuffled_quotes = shuffle_quotes([quotes_free, quotes_cliches, quotes_movie], [50, 50, 50], 24)
+    print(shuffled_quotes, len(shuffled_quotes), sep='\n')
     # TODO loop over required cards
+    # for count in args.count:
+
+
     # TODO shuffle quotes
     # TODO make card
     # TODO export card
