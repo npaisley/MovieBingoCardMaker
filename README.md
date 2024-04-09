@@ -8,5 +8,7 @@ Install using poetry via `poetry install`.
 ## Running the script
 Run using `poetry run python main.py`.
 
+Formatting can be added to the text using html formatting.
+
 ## Example Output
 ![example bingo card](https://raw.githubusercontent.com/npaisley/MovieBingoCardMaker/master/assets/example-card.png)

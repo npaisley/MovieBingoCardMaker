@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bingo Card</title>
+    <style>
+        :root {
+            --table-width: min(80vh, 80vw);
+            --cell-height: calc( var(--table-width) / 5 );
+            --top-margin: calc( ( 100vh - var(--table-width) ) / 2);
+            --cell-unselected: #ffffff;
+            --cell-selected: #22b8cf;
+            --text-unselected: #000000;
+            --text-selected: #f8f9fa;
+        }
+        table {
+            margin-top: var(--top-margin);
+            border-collapse: collapse;
+            width: var(--table-width);
+            table-layout: fixed;
+        }
+        td {
+            border: 1px solid black;
+            text-align: center;
+            height: var(--cell-height);
+            table-layout: fixed;
+            word-wrap: break-word;
+            /*background-color: var(--cell-unselected);*/
+            /*color: var(--text-unselected);*/
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+        }
+        .highlight {
+            background-color: var(--cell-selected);
+            color: var(--text-selected);
+        }
+    </style>
+    <script>
+        window.onload = function () {
+        var tds = document.getElementsByTagName("td");
+        for (var i = 0; i < tds.length; i++)
+            tds[i].onclick = toggleHighlight;
+
+    }
+
+    function toggleHighlight() {
+        var td = this;
+        if (td.className == 'highlight')
+            td.className = '';
+        else
+            td.className = 'highlight';
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+    <!--    <h1>Bingo Card</h1>-->
+        <table>
+            
+                <tr>
+                    
+                        <td>
+                            I'm trying to protect you
+                        </td>
+                    
+                        <td>
+                            Don't you die on me
+                        </td>
+                    
+                        <td>
+                            I've seen this in a dream
+                        </td>
+                    
+                        <td>
+                            There's no time!
+                        </td>
+                    
+                        <td>
+                            Or die trying
+                        </td>
+                    
+                </tr>
+            
+                <tr>
+                    
+                        <td>
+                            We only have one shot or "Make it count"
+                        </td>
+                    
+                        <td>
+                            It's not what it looks like!
+                        </td>
+                    
+                        <td>
+                            We've got company!
+                        </td>
+                    
+                        <td>
+                            Only one person/thing can do/stop X
+                        </td>
+                    
+                        <td>
+                            Kill me
+                        </td>
+                    
+                </tr>
+            
+                <tr>
+                    
+                        <td>
+                            At least you have a home
+                        </td>
+                    
+                        <td>
+                            I've been expecting you or "I knew you'd come"
+                        </td>
+                    
+                        <td>
+                            I can explain
+                        </td>
+                    
+                        <td>
+                            Sometimes, the greatest magic is found within
+                        </td>
+                    
+                        <td>
+                            A true leader inspires others to believe in themselves
+                        </td>
+                    
+                </tr>
+            
+                <tr>
+                    
+                        <td>
+                            The scars of the past shape the warriors of the future
+                        </td>
+                    
+                        <td>
+                            Trust not what you see, but what you feel in your heart
+                        </td>
+                    
+                        <td>
+                            Magic is not in the spells but in the hearts that cast them
+                        </td>
+                    
+                        <td>
+                            The path to redemption is paved with sacrifice
+                        </td>
+                    
+                        <td>
+                            Evil knows no mercy, but neither do we
+                        </td>
+                    
+                </tr>
+            
+                <tr>
+                    
+                        <td>
+                            To save the kingdom, you must first save yourself
+                        </td>
+                    
+                        <td>
+                            The sword chooses the wielder, not the other way around
+                        </td>
+                    
+                        <td>
+                            To conquer fear is the first step to true power
+                        </td>
+                    
+                        <td>
+                            The battle may be won with steel, but the war is won with the spirit
+                        </td>
+                    
+                        <td>
+                            A hero is defined by deeds, not by blood
+                        </td>
+                    
+                </tr>
+            
+        </table>
+    </div>
+</body>
+</html>

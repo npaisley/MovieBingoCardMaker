@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bingo Card</title>
+    <style>
+        :root {
+            --table-width: min(80vh, 80vw);
+            --cell-height: calc( var(--table-width) / 5 );
+            --top-margin: calc( ( 100vh - var(--table-width) ) / 2);
+            --cell-unselected: #ffffff;
+            --cell-selected: #22b8cf;
+            --text-unselected: #000000;
+            --text-selected: #f8f9fa;
+        }
+        table {
+            margin-top: var(--top-margin);
+            border-collapse: collapse;
+            width: var(--table-width);
+            table-layout: fixed;
+        }
+        td {
+            border: 1px solid black;
+            text-align: center;
+            height: var(--cell-height);
+            table-layout: fixed;
+            word-wrap: break-word;
+            /*background-color: var(--cell-unselected);*/
+            /*color: var(--text-unselected);*/
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+        }
+        .highlight {
+            background-color: var(--cell-selected);
+            color: var(--text-selected);
+        }
+    </style>
+    <script>
+        window.onload = function () {
+        var tds = document.getElementsByTagName("td");
+        for (var i = 0; i < tds.length; i++)
+            tds[i].onclick = toggleHighlight;
+
+    }
+
+    function toggleHighlight() {
+        var td = this;
+        if (td.className == 'highlight')
+            td.className = '';
+        else
+            td.className = 'highlight';
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+    <!--    <h1>Bingo Card</h1>-->
+        <table>
+            
+                <tr>
+                    
+                        <td>
+                            Don't laugh tells story and they laugh
+                        </td>
+                    
+                        <td>
+                            It's showtime
+                        </td>
+                    
+                        <td>
+                            The only thing I don't regret is you
+                        </td>
+                    
+                        <td>
+                            Can I/you afford X? "I/you can't afford not to X"
+                        </td>
+                    
+                        <td>
+                            We've got company!
+                        </td>
+                    
+                </tr>
+            
+                <tr>
+                    
+                        <td>
+                            I'm trying to protect you
+                        </td>
+                    
+                        <td>
+                            Or die trying
+                        </td>
+                    
+                        <td>
+                            You just don't get it
+                        </td>
+                    
+                        <td>
+                            Don't you die on me
+                        </td>
+                    
+                        <td>
+                            Do you know who I am?
+                        </td>
+                    
+                </tr>
+            
+                <tr>
+                    
+                        <td>
+                            It was personal to me!
+                        </td>
+                    
+                        <td>
+                            NOOOOOOOOOOOOOOOO!
+                        </td>
+                    
+                        <td>
+                            I can explain
+                        </td>
+                    
+                        <td>
+                            Did I just say that out loud?
+                        </td>
+                    
+                        <td>
+                            Kill me
+                        </td>
+                    
+                </tr>
+            
+                <tr>
+                    
+                        <td>
+                            I think Iâ€™m seeing the future
+                        </td>
+                    
+                        <td>
+                            Hope The Spiders Were Worth It, Mom
+                        </td>
+                    
+                        <td>
+                            Trying to save people who were running out of it
+                        </td>
+                    
+                        <td>
+                            Why, You Never Been Shot At In Queens?
+                        </td>
+                    
+                        <td>
+                            Your future was almost so different
+                        </td>
+                    
+                </tr>
+            
+                <tr>
+                    
+                        <td>
+                            You Saved My Stepmother, Then You Were Super Awkward About It
+                        </td>
+                    
+                        <td>
+                            I knew he was going to die
+                        </td>
+                    
+                        <td>
+                            Until one moment changed everything
+                        </td>
+                    
+                        <td>
+                            I Peed Outside And Everything
+                        </td>
+                    
+                        <td>
+                            I've been having visions
+                        </td>
+                    
+                </tr>
+            
+        </table>
+    </div>
+</body>
+</html>
