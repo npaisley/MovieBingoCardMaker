@@ -80,6 +80,7 @@ def shuffle_quotes(quotes: list[list[str]], quote_amount: list[int]) -> list[str
 
     shuffled = [i[:x] for i, x in zip(quotes, quote_amount)]
     shuffled = [i for q in shuffled for i in q]
+    random.shuffle(shuffled)  # final shuffle
 
     return shuffled
 
