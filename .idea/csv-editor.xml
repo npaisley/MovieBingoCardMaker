@@ -17,13 +17,6 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\movieBingoCardMaker\data\in_the_name_of_the_king.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
         <entry key="\movieBingoCardMaker\data\movie\madame-web.csv">
           <value>
             <Attribute>

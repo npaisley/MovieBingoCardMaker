@@ -13,7 +13,7 @@ def load_quotes_csv(csv_file: Path) -> list:
     :param csv_file: path object for csv file
     :return:
     """
-    with csv_file.open('r') as f:
+    with csv_file.open('r', encoding='utf-8') as f:
         csv_reader = csv.reader(f)
         quotes = [str(q).strip() for row in csv_reader for q in row]
 
